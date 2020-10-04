@@ -1,25 +1,20 @@
 # Emacs/vim
-
 *~
 *.swp
 
 # VSCode
-
 .vscode
 .classpath
 .project
 .settings/
 
 # IntelliJ
-
 .idea/
 
 # MacOS
-
 .DS_Store
 
 # Maven (from: https://github.com/github/gitignore/blob/master/Maven.gitignore)
-
 target/
 pom.xml.tag
 pom.xml.releaseBackup
@@ -54,5 +49,5 @@ buildNumber.properties
 *.tar.gz
 *.rar
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+# Virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
