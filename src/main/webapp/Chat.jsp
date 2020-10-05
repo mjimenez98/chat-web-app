@@ -1,4 +1,5 @@
 <%@ page import="chat.ChatManager" %>
+<%@ page import="chat.Message" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 
 <html>
@@ -8,15 +9,18 @@
     <body>
         <%
             ChatManager chatManager = (ChatManager) request.getAttribute("chatManager");
-            String user = "NO USER";
-            if (chatManager != null)
-                user = chatManager.getChat().getFirst().getUser();
+            if (chatManager != null) {
+                for(Message message : chatManager.getChat()) {
         %>
-        <%= "Welcome, " + user %>
+            <table><tr><td><%= message.getUser() + " - " + message.getMessage() %></td></tr></table>
+        <%
+                }
+            }
+        %>
         <form action="chat" method="POST">
             User: <input type="text" name="user">
             <br />
-            chat.Message: <input type="text" name="message" />
+            Message: <input type="text" name="message" />
             <input type="submit" value="Submit" />
         </form>
     </body>

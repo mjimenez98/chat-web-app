@@ -13,15 +13,23 @@ import java.time.LocalDateTime;
 
 @WebServlet(name = "ChatServlet")
 public class ChatServlet extends HttpServlet {
+    private ChatManager chatManager;
+
+    public void init() {
+        chatManager = new ChatManager();
+    }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Initialize Message properties
         LocalDateTime timestamp = LocalDateTime.now();
         String message = request.getParameter("message");
         String user = request.getParameter("user");
 
+        // Create new Message and save it
         Message newMessage = new Message(timestamp, message, user);
-        ChatManager chatManager = new ChatManager();
         chatManager.postMessage(newMessage);
 
+        // Update chatManager attribute and forward the request to the view
         request.setAttribute("chatManager", chatManager);
         RequestDispatcher rd = request.getRequestDispatcher("Chat.jsp");
         rd.forward(request, response);
