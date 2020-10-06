@@ -10,9 +10,17 @@
         <%
             ChatManager chatManager = (ChatManager) request.getAttribute("chatManager");
             if (chatManager != null) {
-                for(Message message : chatManager.getChat()) {
+                for (Message message : chatManager.getChat()) {
         %>
-            <table><tr><td><%= message.getUser() + " - " + message.getMessage() %></td></tr></table>
+            <table>
+                <tr>
+                    <td>
+                        <%= message.getUser() + " - " + message.getMessage() + " - " +
+                                message.getTimestamp()
+                        %>
+                    </td>
+                </tr>
+            </table>
         <%
                 }
             }
@@ -23,5 +31,12 @@
             Message: <input type="text" name="message" />
             <input type="submit" value="Submit" />
         </form>
+        <%
+            String error = (String) request.getAttribute("noMessageError");
+            if (error != null && error.equals("true")) {
+        %>
+            <p>Sorry, we could not get that :(</p>
+            <p>Do not forget to include a message before submitting!</p>
+        <% } %>
     </body>
 </html>
