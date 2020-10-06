@@ -16,7 +16,8 @@ public class ChatManager implements Serializable {
             return null;
 
         LocalDateTime timestamp = LocalDateTime.now();
-        Message newMessage = new Message(timestamp, user, message);
+        String thisUser = (user.isEmpty()) ? "anonymous" : user;
+        Message newMessage = new Message(timestamp, thisUser, message);
 
         chat.add(newMessage);
 
