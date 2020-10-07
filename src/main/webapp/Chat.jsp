@@ -2,7 +2,10 @@
 <%@ page import="chat.Message" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <title>JSP Chat Web App</title>
     </head>
@@ -25,11 +28,18 @@
                 }
             }
         %>
-        <form action="chat" method="POST">
-            User: <input type="text" name="user">
-            <br />
-            Message: <input type="text" name="message" />
-            <input type="submit" value="Submit" />
+        <form action="chat" method="post">
+            <div>
+                <label for="user">User:</label>
+                <input type="text" name="user" id="user">
+            </div>
+            <div>
+                <label for="message">Message:</label>
+                <input type="text" name="message" id="message">
+            </div>
+            <div>
+                <input type="submit" value="Submit">
+            </div>
         </form>
         <%
             String noMessageError = (String) request.getAttribute("noMessageError");
