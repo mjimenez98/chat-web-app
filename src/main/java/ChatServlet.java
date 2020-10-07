@@ -19,20 +19,30 @@ public class ChatServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Initialize Message properties
-        String message = request.getParameter("message");
-        String user = request.getParameter("user");
+        // Save referrer header
+        String referrer = request.getHeader("referer");
+        referrer = referrer.substring(referrer.lastIndexOf("/") + 1);
 
-        // Create new Message and save it
-        Message newMessage = chatManager.postMessage(user, message);
+        if (!referrerIsValid("chat", referrer)) {
+            String nonValidReferrerError = "true";
+            request.setAttribute("nonValidReferrerError", nonValidReferrerError);
+        } else {
+            // Initialize Message properties
+            String message = request.getParameter("message");
+            String user = request.getParameter("user");
 
-        // If message error
-        // NOTE: Could be improved by having a NoMessageError subclass of Message for better error handling
-        String noMessageError = (newMessage == null) ? "true" : "false";
+            // Create new Message and save it
+            Message newMessage = chatManager.postMessage(user, message);
 
-        // Update attributes and forward the request to the view
-        request.setAttribute("noMessageError", noMessageError);
-        request.setAttribute("chatManager", chatManager);
+            // If message error
+            // NOTE: Could be improved by having a NoMessageError subclass of Message for better error handling
+            String noMessageError = (newMessage == null) ? "true" : "false";
+
+            // Update attributes and forward the request to the view
+            request.setAttribute("noMessageError", noMessageError);
+            request.setAttribute("chatManager", chatManager);
+        }
+
         RequestDispatcher rd = request.getRequestDispatcher("Chat.jsp");
         rd.forward(request, response);
     }
@@ -41,4 +51,11 @@ public class ChatServlet extends HttpServlet {
         RequestDispatcher rd = request.getRequestDispatcher("Chat.jsp");
         rd.forward(request, response);
     }
+
+    // -------------------- HELPER FUNCTIONS --------------------
+
+    private boolean referrerIsValid(String expected, String received) {
+        return expected.equals(received);
+    }
+
 }

@@ -32,11 +32,16 @@
             <input type="submit" value="Submit" />
         </form>
         <%
-            String error = (String) request.getAttribute("noMessageError");
-            if (error != null && error.equals("true")) {
+            String noMessageError = (String) request.getAttribute("noMessageError");
+            String nonValidReferrerError = (String) request.getAttribute("nonValidReferrerError");
+            if (noMessageError != null && noMessageError.equals("true")) {
         %>
             <p>Sorry, we could not get that :(</p>
             <p>Do not forget to include a message before submitting!</p>
+        <% } else if (nonValidReferrerError != null && nonValidReferrerError.equals("true")) {
+        %>
+            <p>Sorry, we could not get that :(</p>
+            <p>Your request seems to be coming from a page other than /chat</p>
         <% } %>
     </body>
 </html>
