@@ -30,10 +30,10 @@ Tomcat is needed to run the Java servlets and launch the web app locally. This p
 
 Add Tomcat Server and set the following options:
 - Application Server: Find the path of the Tomcat server you previously downloaded. If do not have Tomcat installed,
-please refer to the section above so you are able to finish your setup
-- URL: `http://localhost:8080/chat_web_app_war/`. _NOTE: The URL will be changed soon_
+read the section above so you are able to finish your setup
+- URL: `http://localhost:8080/chat_web_app_war/chat`
 
 Before you hit apply, above this button there will be a message in red saying `No artifacts marked for deployment`.
-Please hit `Fix` and select `chat-web-app:war`
+Click on `Fix` and select `chat-web-app:war`
 
 4. Run the new Tomcat configuration and navigate away!
