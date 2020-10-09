@@ -12,6 +12,11 @@
         
         <link rel="stylesheet"
               href="${pageContext.request.contextPath}/css/bootstrap.min.css">
+        <link rel="stylesheet"
+              href="${pageContext.request.contextPath}/css/version-a.css">
+
+        <script src="${pageContext.request.contextPath}/js/jquery-3.5.1.min.js" type="jquery"></script>
+        <script src="${pageContext.request.contextPath}/js/bootstrap.min.js" type="bootstrap"></script>
 
         <title>JSP Chat Web App</title>
     </head>
@@ -19,14 +24,14 @@
         <div class="container">
             <%-- Title --%>
             <div class="row my-2">
-                <div class="col-md-12">
+                <div class="col-12">
                     <h2 class="text-center">JSP Chat Web App</h2>
                 </div>
             </div>
 
             <%-- Chat window --%>
             <div class="row justify-content-center my-2">
-                <div class="col-md-6 border border-success bg-light overflow-auto" style="height: 10em;">
+                <div class="col-8 border border-success bg-light overflow-auto chat-window">
                     <table>
                         <%
                             ChatManager chatManager = (ChatManager) request.getAttribute("chatManager");
@@ -50,7 +55,7 @@
 
             <%-- Form --%>
             <div class="row justify-content-center my-2">
-                <div class="col-md-6">
+                <div class="col-8">
                     <form action="chat" method="post">
                         <div>
                             <label for="user">User:</label>
@@ -80,19 +85,10 @@
             </div>
         </div>
         <div>
-            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-                    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-                    crossorigin="anonymous" type="jquery">
-            </script>
             <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
                     integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
                     crossorigin="anonymous"
                     type="popper.js">
-            </script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-                    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-                    crossorigin="anonymous"
-                    type="bootstrap">
             </script>
         </div>
     </body>
