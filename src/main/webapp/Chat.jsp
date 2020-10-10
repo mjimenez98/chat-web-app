@@ -30,6 +30,28 @@
                 </div>
             </div>
 
+            <%-- Alerts --%>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-9 mt-2">
+                        <%
+                            String noMessageError = (String) request.getAttribute("noMessageError");
+                            String nonValidReferrerError = (String) request.getAttribute("nonValidReferrerError");
+                            if (noMessageError != null && noMessageError.equals("true")) {
+                        %>
+                            <div class="alert alert-danger text-center" role="alert">
+                                Sorry, we could not get that 😔 Do not forget to include a message before submitting!
+                            </div>
+                        <% } else if (nonValidReferrerError != null && nonValidReferrerError.equals("true")) {
+                        %>
+                            <div class="alert alert-danger text-center" role="alert">
+                                ERROR: Your request seems to be coming from a page other than /chat
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+
             <%-- Chat window --%>
             <div class="row justify-content-center my-2">
                 <div id="chat-window" class="col-8">
@@ -84,18 +106,6 @@
                             <input type="submit" value="Submit">
                         </div>
                     </form>
-                    <%
-                        String noMessageError = (String) request.getAttribute("noMessageError");
-                        String nonValidReferrerError = (String) request.getAttribute("nonValidReferrerError");
-                        if (noMessageError != null && noMessageError.equals("true")) {
-                    %>
-                        <p>Sorry, we could not get that :(</p>
-                        <p>Do not forget to include a message before submitting!</p>
-                    <% } else if (nonValidReferrerError != null && nonValidReferrerError.equals("true")) {
-                    %>
-                        <p>Sorry, we could not get that :(</p>
-                        <p>Your request seems to be coming from a page other than /chat</p>
-                    <% } %>
                 </div>
             </div>
         </div>
