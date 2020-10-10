@@ -54,8 +54,8 @@
 
             <%-- Chat window --%>
             <div class="row justify-content-center my-2">
-                <div class="col-8 chat-window">
-                    <div id="chat-border" class="overflow-auto">
+                <div class="col-8">
+                    <div id="chat-window" class="overflow-auto">
                         <table class="table table-striped">
                             <tbody>
                                 <%
