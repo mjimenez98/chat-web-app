@@ -18,9 +18,10 @@
         <script src="${pageContext.request.contextPath}/js/jquery-3.5.1.min.js" type="jquery"></script>
         <script src="${pageContext.request.contextPath}/js/bootstrap.min.js" type="bootstrap"></script>
 
+        <script type="text/javascript" src="js/custom.js"></script>
         <title>JSP Chat Web App</title>
     </head>
-    <body>
+    <body onload="scrollToBottom()">
         <div class="container mw-100">
             <%-- Title --%>
             <div class="row py-5 bg-info">
@@ -31,7 +32,7 @@
 
             <%-- Chat window --%>
             <div class="row justify-content-center my-2">
-                <div class="col-8 chat-window overflow-auto">
+                <div id="chat-window" class="col-8">
                     <table class="table table-striped">
                         <tbody>
                             <%

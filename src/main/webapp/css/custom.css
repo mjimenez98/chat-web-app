@@ -1,3 +1,6 @@
-.chat-window {
+/* All custom CSS used for Chat Web App that is common to both stylesheets */
+
+#chat-window {
     height: 20em;
+    overflow: scroll;
 }
