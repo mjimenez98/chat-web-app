@@ -1,11 +1,15 @@
 /* All custom CSS used for Chat Web App that is common to both stylesheets */
 
-#chat-window {
+#chat-border {
+    height: 20em;
+    border: 0.2em solid #1B91AA;
+}
+
+.chat-window {
     height: 20em;
     overflow: scroll;
 }
 
-.table-border {
-    height: 20em;
-    border: 0.2em solid #1B91AA;
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #D9F7F7
 }
