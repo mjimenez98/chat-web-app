@@ -55,38 +55,40 @@
             <%-- Chat window --%>
             <div class="row justify-content-center my-2">
                 <div id="chat-window" class="col-8">
-                    <table class="table table-striped">
-                        <tbody>
-                            <%
-                                ChatManager chatManager = (ChatManager) request.getAttribute("chatManager");
-                                if (chatManager != null) {
-                                    for (Message message : chatManager.getChat()) {
-                            %>
-                            <tr>
-                                <td>
-                                    <div class="container">
-                                        <div class="row justify-content-between">
-                                            <div class="col-3">
-                                                <p class="font-weight-light"><%= message.getUser() %></p>
+                    <div class="table-border overflow-auto">
+                        <table class="table table-striped">
+                            <tbody>
+                                <%
+                                    ChatManager chatManager = (ChatManager) request.getAttribute("chatManager");
+                                    if (chatManager != null) {
+                                        for (Message message : chatManager.getChat()) {
+                                %>
+                                    <tr>
+                                    <td>
+                                        <div class="container">
+                                            <div class="row justify-content-between">
+                                                <div class="col-3">
+                                                    <p class="font-weight-light"><%= message.getUser() %></p>
+                                                </div>
+                                                <div class="col-5">
+                                                    <p class="font-italic text-right"><%= message.getTimestamp() %>
+                                                </div>
                                             </div>
-                                            <div class="col-5">
-                                                <p class="font-italic text-right"><%= message.getTimestamp() %>
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <p class="font-weight-normal text-wrap"><%= message.getMessage() %></p>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <p class="font-weight-normal text-wrap"><%= message.getMessage() %></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <%
+                                    </td>
+                                </tr>
+                                <%
+                                        }
                                     }
-                                }
-                            %>
-                        </tbody>
-                    </table>
+                                %>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 

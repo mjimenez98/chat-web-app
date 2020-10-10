@@ -4,3 +4,8 @@
     height: 20em;
     overflow: scroll;
 }
+
+.table-border {
+    height: 20em;
+    border: 0.2em solid #1B91AA;
+}
