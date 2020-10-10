@@ -64,24 +64,24 @@
                                         for (Message message : chatManager.getChat()) {
                                 %>
                                     <tr>
-                                    <td>
-                                        <div class="container">
-                                            <div class="row justify-content-between">
-                                                <div class="col-3">
-                                                    <p class="font-weight-light"><%= message.getUser() %></p>
+                                        <td>
+                                            <div class="container">
+                                                <div class="row justify-content-between">
+                                                    <div class="col-3">
+                                                        <p class="font-weight-light"><%= message.getUser() %></p>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <p class="font-italic text-right"><%= message.getTimestamp() %>
+                                                    </div>
                                                 </div>
-                                                <div class="col-5">
-                                                    <p class="font-italic text-right"><%= message.getTimestamp() %>
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <p class="font-weight-normal text-wrap"><%= message.getMessage() %></p>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <p class="font-weight-normal text-wrap"><%= message.getMessage() %></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
+                                        </td>
+                                    </tr>
                                 <%
                                         }
                                     }
@@ -93,24 +93,29 @@
             </div>
 
             <%-- Form --%>
-            <div class="row justify-content-center my-2">
+            <div class="row justify-content-center mt-2 mb-5">
                 <div class="col-8">
                     <form action="chat" method="post">
-                        <div>
-                            <label for="user">User:</label>
-                            <input type="text" name="user" id="user">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">User</span>
+                            </div>
+                            <label for="user"></label>
+                            <input type="text" class="form-control" name="user" id="user">
                         </div>
-                        <div>
-                            <label for="message">Message:</label>
-                            <input type="text" name="message" id="message">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Message</span>
+                            </div>
+                            <label for="message"></label>
+                            <textarea class="form-control" name="message" id="message" rows="2" cols="30"></textarea>
                         </div>
-                        <div>
-                            <input type="submit" value="Submit">
+                        <div class="text-center mt-2">
+                            <input type="submit" class="btn btn-info" value="Submit">
                         </div>
                     </form>
                 </div>
             </div>
-        </div>
         <div>
             <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
                     integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
