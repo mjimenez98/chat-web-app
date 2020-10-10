@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.RequestDispatcher;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.time.LocalDateTime;
 
 @WebServlet(name = "ChatServlet")
 public class ChatServlet extends HttpServlet {
@@ -38,6 +40,7 @@ public class ChatServlet extends HttpServlet {
             // NOTE: Could be improved by having a NoMessageError subclass of Message for better error handling
             String noMessageError = (newMessage == null) ? "true" : "false";
 
+
             // Update attributes and forward the request to the view
             request.setAttribute("noMessageError", noMessageError);
             request.setAttribute("chatManager", chatManager);
@@ -48,6 +51,16 @@ public class ChatServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (request.getParameterMap().containsKey("delete")) {
+            String dateStart = request.getParameter("start");
+            String dateEnd = request.getParameter("end");
+            LocalDateTime start = dateStart.isEmpty() ? null : LocalDateTime.parse(dateStart);
+            LocalDateTime end = dateEnd.isEmpty() ? null : LocalDateTime.parse(dateEnd);
+            if (request.getParameterMap().containsKey("delete")) {
+                chatManager.clearChat(start, end);
+                request.setAttribute("chatManager", chatManager);
+            }
+        }
         RequestDispatcher rd = request.getRequestDispatcher("Chat.jsp");
         rd.forward(request, response);
     }
