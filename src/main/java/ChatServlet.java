@@ -67,6 +67,21 @@ public class ChatServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String dateStart = request.getParameter("start");
+        String dateEnd = request.getParameter("end");
+        LocalDateTime start =null;
+        LocalDateTime end =null;
+
+        // Parse String into LocalDateTime
+        if (dateStart !=null && dateStart.length() >0) {
+            start=LocalDateTime.parse(dateStart);
+        }
+        if (dateStart !=null && dateEnd.length() >0){
+            end = LocalDateTime.parse(dateEnd);}
+
+    chatManager.ListMessage(start,end);
+    request.setAttribute("chatManager", chatManager);
+    
         RequestDispatcher rd = request.getRequestDispatcher("Chat.jsp");
         rd.forward(request, response);
     }

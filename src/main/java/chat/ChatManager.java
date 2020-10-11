@@ -3,6 +3,7 @@ package chat;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
+import java.util.stream.Stream;
 
 public class ChatManager implements Serializable {
     private LinkedList<Message> chat;
@@ -27,7 +28,7 @@ public class ChatManager implements Serializable {
     }
 
 
-    public LinkedList<Message> ListMessage(LocalDateTime startDate, LocalDateTime endDate) {
+   /* public LinkedList<Message> ListMessage(LocalDateTime startDate, LocalDateTime endDate) {
         filteredChat = new LinkedList<>();
         if (startDate == null && endDate == null) {
             filteredChat = chat;
@@ -41,6 +42,25 @@ public class ChatManager implements Serializable {
             if (getChat().get(i).getTimestamp().isAfter(startDate) && getChat().get(i).getTimestamp().isBefore(endDate)) {
                 filteredChat.add(chat.get(i)); } }
         return filteredChat;
+    } */
+
+    public void ListMessage(LocalDateTime startDate, LocalDateTime endDate) {
+        if (!(chat == null)) {
+            Stream<Message> messagesToKeepStream = chat.stream();
+            if (startDate != null && endDate != null) {
+                messagesToKeepStream = chat.stream().filter(postedMessage ->
+                        postedMessage.getTimestamp().isAfter(startDate) || postedMessage.getTimestamp().isBefore(endDate));
+            } else if (startDate != null) {
+                messagesToKeepStream = chat.stream().filter(postedMessage ->
+                        postedMessage.getTimestamp().isAfter(startDate));
+            } else if (endDate != null) {
+                messagesToKeepStream = chat.stream().filter(postedMessage ->
+                        postedMessage.getTimestamp().isBefore(endDate));
+            }
+            filteredChat = new LinkedList<>();
+            messagesToKeepStream.forEach(messageToKeep -> filteredChat.add(messageToKeep));
+
+        }
     }
 
     public LinkedList<Message> getChat() {
