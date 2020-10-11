@@ -1,5 +1,5 @@
-<%@ page import="chat.ChatManager" %>
 <%@ page import="chat.Message" %>
+<%@ page import="java.util.LinkedList" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
@@ -10,47 +10,24 @@
         <title>JSP Chat Web App</title>
     </head>
     <body>
-        <%
-            ChatManager chatManager = (ChatManager) request.getAttribute("chatManager");
-            if (chatManager != null && chatManager.getChat() != null && request.getParameter("filter") == null) {
-                for (Message message : chatManager.getChat()) {
-        %>
-            <table>
+        <table>
+            <%
+                LinkedList<Message> chat = (LinkedList<Message>) request.getAttribute("chat");
+
+                if (request.getAttribute("chat") != null) {
+                    for(Message message : chat) {
+            %>
                 <tr>
                     <td>
-                        <%= message.getUser() + " - " + message.getMessage() + " - " +
-                                message.getTimestamp()
-                        %>
+                        <%= message.getUser() + " - " + message.getMessage() + " - " + message.getTimestamp() %>
                     </td>
                 </tr>
-            </table>
-        <%
+            <%
+                    }
                 }
-            }
-        %>
-
-        <%
-    if(request.getParameter("filter") !=null) {
-
-    %>
-<div> Filtered Chat:  </div>
-<% assert chatManager != null;
-    if(chatManager.getFilteredChat() != null) {
-    for (Message message : chatManager.getFilteredChat()) {
-%>
-<table>
-    <tr>
-        <td>
-            <%= message.getUser() + " - " + message.getMessage() + " - " +
-                    message.getTimestamp()
             %>
-        </td>
-    </tr>
-</table>
-<% }
-        }
-    }
-%>
+        </table>
+
         <form action="chat" method="post">
             <div>
                 <label for="user">User:</label>
@@ -75,14 +52,14 @@
                 <input type="datetime-local" name = "end" id="endDate" >
             </div>
             <div>
-                <input type="submit" value="Filter" name="filter">
+                <input type="submit" value="Filter">
             </div>
         </form>
-        
+
         <%
             String noMessageError = (String) request.getAttribute("noMessageError");
             String nonValidReferrerError = (String) request.getAttribute("nonValidReferrerError");
-            if (noMessageError != null && noMessageError.equals("true") && request.getParameter("filter") ==null) {
+            if (noMessageError != null && noMessageError.equals("true")) {
         %>
             <p>Sorry, we could not get that :(</p>
             <p>Do not forget to include a message before submitting!</p>

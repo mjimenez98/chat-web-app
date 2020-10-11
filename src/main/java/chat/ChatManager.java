@@ -3,12 +3,9 @@ package chat;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
-import java.util.stream.Stream;
 
 public class ChatManager implements Serializable {
     private LinkedList<Message> chat;
-    private LinkedList<Message> filteredChat;
-
 
     public Message postMessage(String user, String message) {
         if (chat == null)
@@ -28,46 +25,34 @@ public class ChatManager implements Serializable {
     }
 
 
-   /* public LinkedList<Message> ListMessage(LocalDateTime startDate, LocalDateTime endDate) {
-        filteredChat = new LinkedList<>();
-        if (startDate == null && endDate == null) {
-            filteredChat = chat;
-            return filteredChat;
-        } else if (startDate == null) {
-            startDate = LocalDateTime.of(1000, 1, 1, 1, 1);}
-        else if (endDate == null) {
-            endDate = LocalDateTime.of(3000, 1, 1, 1, 1); }
+   public LinkedList<Message> ListMessages(LocalDateTime startDate, LocalDateTime endDate) {
+        // We don't need this. Would be replaced if using a stream
+        LinkedList<Message> filteredChat = new LinkedList<>();
 
+       // We don't need this specific if. The logic could be redesigned if using a stream
+        if (startDate == null && endDate == null) {
+            return chat;
+        } else if (startDate == null) {
+            startDate = LocalDateTime.of(1000, 1, 1, 1, 1);
+        }
+        else if (endDate == null) {
+            endDate = LocalDateTime.of(3000, 1, 1, 1, 1);
+        }
+
+        // Here you can use a stream().filter() and it would take off the nodes you don't want
+       // For that you can do chat.stream() and use that as an object
         for (int i = 0; i < chat.size(); i++) {
             if (getChat().get(i).getTimestamp().isAfter(startDate) && getChat().get(i).getTimestamp().isBefore(endDate)) {
-                filteredChat.add(chat.get(i)); } }
-        return filteredChat;
-    } */
-
-    public void ListMessage(LocalDateTime startDate, LocalDateTime endDate) {
-        if (!(chat == null)) {
-            Stream<Message> messagesToKeepStream = chat.stream();
-            if (startDate != null && endDate != null) {
-                messagesToKeepStream = chat.stream().filter(postedMessage ->
-                        postedMessage.getTimestamp().isAfter(startDate) || postedMessage.getTimestamp().isBefore(endDate));
-            } else if (startDate != null) {
-                messagesToKeepStream = chat.stream().filter(postedMessage ->
-                        postedMessage.getTimestamp().isAfter(startDate));
-            } else if (endDate != null) {
-                messagesToKeepStream = chat.stream().filter(postedMessage ->
-                        postedMessage.getTimestamp().isBefore(endDate));
+                filteredChat.add(chat.get(i));
             }
-            filteredChat = new LinkedList<>();
-            messagesToKeepStream.forEach(messageToKeep -> filteredChat.add(messageToKeep));
-
         }
+
+        // Return that stream as a linked list
+        return filteredChat;
     }
 
     public LinkedList<Message> getChat() {
         return chat;
     }
-
-    public LinkedList<Message> getFilteredChat() {
-        return filteredChat; }
 
 }
