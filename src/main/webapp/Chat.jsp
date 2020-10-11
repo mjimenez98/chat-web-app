@@ -94,6 +94,11 @@
             </div>
 
             <%-- Form --%>
+            <%
+                String userId = (String) request.getAttribute("userId");
+                if (userId == null)
+                    userId = "";
+            %>
             <div class="row justify-content-center mt-2 mb-5">
                 <div class="col-8">
                     <form action="chat" method="post">
@@ -102,7 +107,7 @@
                                 <span class="input-group-text">User</span>
                             </div>
                             <label for="user"></label>
-                            <input type="text" class="form-control" name="user" id="user">
+                            <input type="text" class="form-control" name="user" id="user" value="<%= userId %>">
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
@@ -113,30 +118,6 @@
                         </div>
                         <div class="text-center mt-2">
                             <input type="submit" class="btn btn-info" value="Submit">
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <button type="button" class="btn btn-info" id="modal-button" onclick="showModal()">Activate</button>
-
-        <%-- Identification modal --%>
-        <div class="modal fade" id="modal" data-backdrop="static" tabindex="-1" role="dialog" data-keyboard="false">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Please identify yourself</h5>
-                    </div>
-                    <form>
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label for="user-modal" class="col-form-label">User:</label>
-                                <input type="text" class="form-control" id="user-modal">
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-info" value="Submit">Submit</button>
                         </div>
                     </form>
                 </div>

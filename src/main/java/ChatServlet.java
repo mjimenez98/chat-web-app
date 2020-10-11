@@ -4,6 +4,7 @@ import chat.Message;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,6 +31,9 @@ public class ChatServlet extends HttpServlet {
             // Initialize Message properties
             String message = request.getParameter("message");
             String user = request.getParameter("user");
+
+            // Set value for user field in form
+            request.setAttribute("userId", user);
 
             // Create new Message and save it
             Message newMessage = chatManager.postMessage(user, message);
