@@ -122,23 +122,23 @@
         <button type="button" class="btn btn-info" id="modal-button" onclick="showModal()">Activate</button>
 
         <%-- Identification modal --%>
-        <div class="modal fade" id="modal">
+        <div class="modal fade" id="modal" data-backdrop="static" tabindex="-1" role="dialog" data-keyboard="false">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Please identify yourself</h5>
                     </div>
-                    <div class="modal-body">
-                        <form action="">
+                    <form>
+                        <div class="modal-body">
                             <div class="form-group">
                                 <label for="user-modal" class="col-form-label">User:</label>
                                 <input type="text" class="form-control" id="user-modal">
                             </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-info">Submit</button>
-                    </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-info" value="Submit">Submit</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
