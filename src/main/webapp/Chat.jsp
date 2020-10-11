@@ -15,10 +15,11 @@
         <link rel="stylesheet"
               href="${pageContext.request.contextPath}/css/custom.css">
 
-        <script src="${pageContext.request.contextPath}/js/jquery-3.5.1.min.js" type="jquery"></script>
-        <script src="${pageContext.request.contextPath}/js/bootstrap.min.js" type="bootstrap"></script>
-
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" type=""></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js" type=""></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" type=""></script>
         <script type="text/javascript" src="js/custom.js"></script>
+
         <title>JSP Chat Web App</title>
     </head>
     <body onload="scrollToBottom()">
@@ -116,12 +117,30 @@
                     </form>
                 </div>
             </div>
-        <div>
-            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-                    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-                    crossorigin="anonymous"
-                    type="popper.js">
-            </script>
+        </div>
+
+        <button type="button" class="btn btn-info" id="modal-button" onclick="showModal()">Activate</button>
+
+        <%-- Identification modal --%>
+        <div class="modal fade" id="modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Please identify yourself</h5>
+                    </div>
+                    <div class="modal-body">
+                        <form action="">
+                            <div class="form-group">
+                                <label for="user-modal" class="col-form-label">User:</label>
+                                <input type="text" class="form-control" id="user-modal">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-info">Submit</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </body>
 </html>
