@@ -115,7 +115,7 @@
                             <textarea class="form-control" name="message" id="message" rows="2" cols="30"></textarea>
                         </div>
                         <div class="text-center mt-2">
-                            <input type="submit" class="btn btn-info" value="Submit">
+                            <input type="submit" class="btn btn-info" value="Send">
                         </div>
                     </form>
                 </div>
