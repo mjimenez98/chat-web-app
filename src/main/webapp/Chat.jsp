@@ -95,9 +95,7 @@
 
             <%-- Form --%>
             <%
-                String userId = (String) request.getAttribute("userId");
-                if (userId == null)
-                    userId = "";
+                String userId = (request.getAttribute("userId") == null) ? "" : (String) request.getAttribute("userId");
             %>
             <div class="row justify-content-center mt-2 mb-5">
                 <div class="col-8">
