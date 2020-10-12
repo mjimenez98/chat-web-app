@@ -68,10 +68,6 @@ public class ChatServlet extends HttpServlet {
         request.setAttribute("chat", chat);
 
         if (request.getParameterMap().containsKey("delete")) {
-            String dateStart = request.getParameter("start");
-            String dateEnd = request.getParameter("end");
-            LocalDateTime start = dateStart.isEmpty() ? null : LocalDateTime.parse(dateStart);
-            LocalDateTime end = dateEnd.isEmpty() ? null : LocalDateTime.parse(dateEnd);
             if (request.getParameterMap().containsKey("delete")) {
                 chatManager.clearChat(start, end);
                 request.setAttribute("chatManager", chatManager);
