@@ -123,7 +123,6 @@
             </div>
         </div>
 
-    </form>
 
     <form action="chat" method="get">
         <div>
