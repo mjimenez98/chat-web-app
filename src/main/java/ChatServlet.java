@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
@@ -21,10 +22,13 @@ public class ChatServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getHeader("referer") == null) {
+        if (request.getHeader("referer").length() < 1) {
             String nonValidReferrerError = "true";
             request.setAttribute("nonValidReferrerError", nonValidReferrerError);
         } else {
+            // Get session
+            HttpSession session = request.getSession(false);
+
             // Initialize Message properties
             String message = request.getParameter("message");
             String user = request.getParameter("user");
@@ -32,18 +36,23 @@ public class ChatServlet extends HttpServlet {
             // Create new Message and save it
             Message newMessage = chatManager.postMessage(user, message);
 
-            // If message error
+            // If message parameter missing
             // NOTE: Could be improved by having a NoMessageError subclass of Message for better error handling
             String noMessageError = (newMessage == null) ? "true" : "false";
 
-            // Update attributes and forward the request to the view
+      /*      // Update attributes and forward the request to the view
             request.setAttribute("noMessageError", noMessageError);
             LinkedList<Message> chat = chatManager.ListMessages(null, null);
-            request.setAttribute("chat", chat);
+            request.setAttribute("chat", chat); */
+            
+            // Update attributes
+            session.setAttribute("userId", user);
+            session.setAttribute("noMessageError", noMessageError);
+            LinkedList<Message> chat = chatManager.ListMessages(null, null);
+            session.setAttribute("chat", chat);
         }
 
-        RequestDispatcher rd = request.getRequestDispatcher("Chat.jsp");
-        rd.forward(request, response);
+        response.sendRedirect("/chat_web_app_war/chat");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
