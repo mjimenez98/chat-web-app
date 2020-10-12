@@ -4,7 +4,6 @@ import chat.Message;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,11 +19,7 @@ public class ChatServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Save referrer header
-        String referrer = request.getHeader("referer");
-        referrer = referrer.substring(referrer.lastIndexOf("/") + 1);
-
-        if (!referrerIsValid("chat", referrer)) {
+        if (request.getHeader("referer").length() < 1) {
             String nonValidReferrerError = "true";
             request.setAttribute("nonValidReferrerError", nonValidReferrerError);
         } else {
@@ -55,11 +50,4 @@ public class ChatServlet extends HttpServlet {
         RequestDispatcher rd = request.getRequestDispatcher("Chat.jsp");
         rd.forward(request, response);
     }
-
-    // -------------------- HELPER FUNCTIONS --------------------
-
-    private boolean referrerIsValid(String expected, String received) {
-        return expected.equals(received);
-    }
-
 }
