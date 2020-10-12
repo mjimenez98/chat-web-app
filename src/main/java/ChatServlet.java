@@ -40,11 +40,6 @@ public class ChatServlet extends HttpServlet {
             // NOTE: Could be improved by having a NoMessageError subclass of Message for better error handling
             String noMessageError = (newMessage == null) ? "true" : "false";
 
-      /*      // Update attributes and forward the request to the view
-            request.setAttribute("noMessageError", noMessageError);
-            LinkedList<Message> chat = chatManager.ListMessages(null, null);
-            request.setAttribute("chat", chat); */
-            
             // Update attributes
             session.setAttribute("userId", user);
             session.setAttribute("noMessageError", noMessageError);
@@ -72,6 +67,16 @@ public class ChatServlet extends HttpServlet {
         LinkedList<Message> chat = chatManager.ListMessages(start, end);
         request.setAttribute("chat", chat);
 
+        if (request.getParameterMap().containsKey("delete")) {
+            String dateStart = request.getParameter("start");
+            String dateEnd = request.getParameter("end");
+            LocalDateTime start = dateStart.isEmpty() ? null : LocalDateTime.parse(dateStart);
+            LocalDateTime end = dateEnd.isEmpty() ? null : LocalDateTime.parse(dateEnd);
+            if (request.getParameterMap().containsKey("delete")) {
+                chatManager.clearChat(start, end);
+                request.setAttribute("chatManager", chatManager);
+            }
+        }
         RequestDispatcher rd = request.getRequestDispatcher("Chat.jsp");
         rd.forward(request, response);
     }

@@ -48,4 +48,24 @@ public class ChatManager implements Serializable {
         return chat;
     }
 
+    public void clearChat(LocalDateTime startDate, LocalDateTime endDate) {
+        if (startDate == null && endDate == null) {
+            chat.clear();
+        } else {
+            Stream<Message> messagesToKeepStream = chat.stream();
+            if (startDate != null && endDate != null) {
+                messagesToKeepStream = chat.stream().filter(postedMessage ->
+                        postedMessage.getTimestamp().isBefore(startDate) || postedMessage.getTimestamp().isAfter(endDate));
+            } else if (startDate != null) {
+                messagesToKeepStream = chat.stream().filter(postedMessage ->
+                        postedMessage.getTimestamp().isBefore(startDate));
+            } else if (endDate != null) {
+                messagesToKeepStream = chat.stream().filter(postedMessage ->
+                        postedMessage.getTimestamp().isAfter(endDate));
+            }
+            LinkedList<Message> filteredChat = new LinkedList<>();
+            messagesToKeepStream.forEach(filteredChat::add);
+            chat = filteredChat;
+        }
+    }
 }
