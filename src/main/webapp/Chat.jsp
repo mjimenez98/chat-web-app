@@ -54,6 +54,12 @@
             <div>
                 <input type="submit" value="Filter">
             </div>
+      <% //testing %>
+    <input type="radio" id="txt" name="typeFile" value="txt">
+    <label for="txt">Txt</label><br>
+    <input type="radio" id="xml" name="typeFile" value="xml">
+    <label for="xml">Xml</label><br>
+    <input type="submit" value="download" name="download">
         </form>
 
         <%
