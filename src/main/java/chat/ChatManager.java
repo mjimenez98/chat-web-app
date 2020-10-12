@@ -45,7 +45,7 @@ public class ChatManager implements Serializable {
                         postedMessage.getTimestamp().isAfter(endDate));
             }
             LinkedList<Message> filteredChat = new LinkedList<>();
-            messagesToKeepStream.forEach(messageToKeep -> filteredChat.add(messageToKeep));
+            messagesToKeepStream.forEach(filteredChat::add);
             chat = filteredChat;
         }
     }
