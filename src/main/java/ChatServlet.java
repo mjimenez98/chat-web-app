@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet(name = "ChatServlet")
@@ -23,27 +24,27 @@ public class ChatServlet extends HttpServlet {
             String nonValidReferrerError = "true";
             request.setAttribute("nonValidReferrerError", nonValidReferrerError);
         } else {
+            // Get session
+            HttpSession session = request.getSession(false);
+
             // Initialize Message properties
             String message = request.getParameter("message");
             String user = request.getParameter("user");
 
-            // Set value for user field in form
-            request.setAttribute("userId", user);
-
             // Create new Message and save it
             Message newMessage = chatManager.postMessage(user, message);
 
-            // If message error
+            // If message parameter missing
             // NOTE: Could be improved by having a NoMessageError subclass of Message for better error handling
             String noMessageError = (newMessage == null) ? "true" : "false";
 
-            // Update attributes and forward the request to the view
-            request.setAttribute("noMessageError", noMessageError);
-            request.setAttribute("chatManager", chatManager);
+            // Update attributes
+            session.setAttribute("userId", user);
+            session.setAttribute("noMessageError", noMessageError);
+            session.setAttribute("chatManager", chatManager);
         }
 
-        RequestDispatcher rd = request.getRequestDispatcher("Chat.jsp");
-        rd.forward(request, response);
+        response.sendRedirect("/chat_web_app_war/chat");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -36,8 +36,8 @@
                 <div class="row justify-content-center">
                     <div class="col-9 mt-2">
                         <%
-                            String noMessageError = (String) request.getAttribute("noMessageError");
-                            String nonValidReferrerError = (String) request.getAttribute("nonValidReferrerError");
+                            String noMessageError = (String) session.getAttribute("noMessageError");
+                            String nonValidReferrerError = (String) session.getAttribute("nonValidReferrerError");
                             if (noMessageError != null && noMessageError.equals("true")) {
                         %>
                             <div class="alert alert-danger text-center" role="alert">
@@ -60,7 +60,7 @@
                         <table class="table table-striped">
                             <tbody>
                                 <%
-                                    ChatManager chatManager = (ChatManager) request.getAttribute("chatManager");
+                                    ChatManager chatManager = (ChatManager) session.getAttribute("chatManager");
                                     if (chatManager != null) {
                                         for (Message message : chatManager.getChat()) {
                                 %>
@@ -95,7 +95,7 @@
 
             <%-- Form --%>
             <%
-                String userId = (request.getAttribute("userId") == null) ? "" : (String) request.getAttribute("userId");
+                String userId = (session.getAttribute("userId") == null) ? "" : (String) session.getAttribute("userId");
             %>
             <div class="row justify-content-center mt-2 mb-5">
                 <div class="col-8">
