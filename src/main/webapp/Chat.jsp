@@ -53,6 +53,29 @@
                 </div>
             </div>
 
+            <div class="row justify-content-center input-group">
+                <form action="chat" method="get" class="form-inline">
+                    <div class="input-group mx-sm-2 mb-3 mt-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">From</span>
+                        </div>
+                            <label for="startDate"></label>
+                            <input type="datetime-local" class="form-control" name="start" id="startDate">
+                    </div>
+        
+                    <div class="input-group mx-sm-2 mb-3 mt-3">
+                        <div class="input-group-prepend">
+                        <span class="input-group-text">To</span>
+                        </div>
+                        <label for="endDate"></label>
+                        <input type="datetime-local" class="form-control" name="end" id="endDate">
+                    </div>
+                    <div class="form-group mx-sm-2 mb-3 mt-3">
+                        <input type="submit" class="btn btn-info" value="Filter">
+                    </div>
+                </form>
+                </div>
+
             <%-- Chat window --%>
             <div class="row justify-content-center my-2">
                 <div class="col-8">
@@ -123,20 +146,5 @@
             </div>
         </div>
 
-
-    <form action="chat" method="get">
-        <div>
-            <label for="startDate">Start date:</label>
-            <input type="datetime-local" name= "start" id="startDate" >
-        </div>
-        <div>
-            <label for="endDate">End date:</label>
-            <input type="datetime-local" name = "end" id="endDate" >
-        </div>
-        <div>
-            <input type="submit" value="Filter">
-        </div>
-        
-    </form>
     </body>
 </html>
