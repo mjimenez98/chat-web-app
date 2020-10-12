@@ -25,30 +25,21 @@ public class ChatManager implements Serializable {
     }
 
 
-   public LinkedList<Message> ListMessages(LocalDateTime startDate, LocalDateTime endDate) {
-        // We don't need this. Would be replaced if using a stream
-        LinkedList<Message> filteredChat = new LinkedList<>();
-
-       // We don't need this specific if. The logic could be redesigned if using a stream
-        if (startDate == null && endDate == null) {
-            return chat;
-        } else if (startDate == null) {
-            startDate = LocalDateTime.of(1000, 1, 1, 1, 1);
-        }
-        else if (endDate == null) {
-            endDate = LocalDateTime.of(3000, 1, 1, 1, 1);
-        }
-
-        // Here you can use a stream().filter() and it would take off the nodes you don't want
-       // For that you can do chat.stream() and use that as an object
-        for (int i = 0; i < chat.size(); i++) {
-            if (getChat().get(i).getTimestamp().isAfter(startDate) && getChat().get(i).getTimestamp().isBefore(endDate)) {
-                filteredChat.add(chat.get(i));
+    public LinkedList<Message> ListMessages(LocalDateTime startDate, LocalDateTime endDate) {
+        if (chat == null)
+            chat = new LinkedList<>();
+            Stream<Message> messagesToKeepStream = chat.stream();
+            if (startDate != null && endDate != null) {
+                messagesToKeepStream = chat.stream().filter(postedMessage ->
+                        postedMessage.getTimestamp().isAfter(startDate) || postedMessage.getTimestamp().isBefore(endDate));
+            } else if (startDate != null) {
+                messagesToKeepStream = chat.stream().filter(postedMessage ->
+                        postedMessage.getTimestamp().isAfter(startDate));
+            } else if (endDate != null) {
+                messagesToKeepStream = chat.stream().filter(postedMessage ->
+                        postedMessage.getTimestamp().isBefore(endDate));
             }
-        }
-
-        // Return that stream as a linked list
-        return filteredChat;
+        return messagesToKeepStream.collect(Collectors.toCollection(LinkedList::new));
     }
 
     public LinkedList<Message> getChat() {
