@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.time.LocalDateTime;
+import java.util.LinkedList;
 
 @WebServlet(name = "ChatServlet")
 public class ChatServlet extends HttpServlet {
@@ -40,22 +40,34 @@ public class ChatServlet extends HttpServlet {
             // NOTE: Could be improved by having a NoMessageError subclass of Message for better error handling
             String noMessageError = (newMessage == null) ? "true" : "false";
 
-
             // Update attributes
             session.setAttribute("userId", user);
             session.setAttribute("noMessageError", noMessageError);
-            session.setAttribute("chatManager", chatManager);
+            LinkedList<Message> chat = chatManager.ListMessages(null, null);
+            session.setAttribute("chat", chat);
         }
 
         response.sendRedirect("/chat_web_app_war/chat");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String dateStart = request.getParameter("start");
+        String dateEnd = request.getParameter("end");
+        LocalDateTime start = null;
+        LocalDateTime end = null;
+
+        // Parse String into LocalDateTime
+        if (dateStart != null && dateStart.length() > 0) {
+            start = LocalDateTime.parse(dateStart);
+        }
+        if (dateStart != null && dateEnd.length() > 0) {
+            end = LocalDateTime.parse(dateEnd);
+        }
+
+        LinkedList<Message> chat = chatManager.ListMessages(start, end);
+        request.setAttribute("chat", chat);
+
         if (request.getParameterMap().containsKey("delete")) {
-            String dateStart = request.getParameter("start");
-            String dateEnd = request.getParameter("end");
-            LocalDateTime start = dateStart.isEmpty() ? null : LocalDateTime.parse(dateStart);
-            LocalDateTime end = dateEnd.isEmpty() ? null : LocalDateTime.parse(dateEnd);
             if (request.getParameterMap().containsKey("delete")) {
                 chatManager.clearChat(start, end);
                 request.setAttribute("chatManager", chatManager);

@@ -1,5 +1,5 @@
-<%@ page import="chat.ChatManager" %>
 <%@ page import="chat.Message" %>
+<%@ page import="java.util.LinkedList" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
@@ -60,9 +60,10 @@
                         <table class="table table-striped">
                             <tbody>
                                 <%
-                                    ChatManager chatManager = (ChatManager) session.getAttribute("chatManager");
-                                    if (chatManager != null) {
-                                        for (Message message : chatManager.getChat()) {
+                                LinkedList<Message> chat = (LinkedList<Message>) request.getAttribute("chat");
+
+                                    if (request.getAttribute("chat") != null) {
+                                        for(Message message : chat) {
                                 %>
                                     <tr>
                                         <td>
@@ -120,35 +121,22 @@
                     </form>
                 </div>
             </div>
-        </form>
-        <form action = "chat" method = "get">
-            <div>
-                <label for="startDate">Start date:</label>
-                <input type="datetime-local" name= "start" id="startDate" >
-                <div>
-                    <label for="endDate">End date:</label>
-                    <input type="datetime-local" name = "end" id="endDate" >
-                </div>
-                <div>
-                    <input type = "submit" value = "Filter">
-                </div>
-                <div>
-                    <input type = "submit" value = "Delete" name = "delete">
-                </div>
-        </form>
-        <%
-            String noMessageError = (String) request.getAttribute("noMessageError");
-            String nonValidReferrerError = (String) request.getAttribute("nonValidReferrerError");
-            if (noMessageError != null && noMessageError.equals("true")) {
-        %>
-            <p>Sorry, we could not get that :(</p>
-            <p>Do not forget to include a message before submitting!</p>
-        <% } else if (nonValidReferrerError != null && nonValidReferrerError.equals("true")) {
-        %>
-        <p><%= request.getHeader("referer")%></p>
-            <p>Sorry, we could not get that :(</p>
-            <p>Your request seems to be coming from a page other than /chat</p>
-        <% } %>
+        </div>
 
+
+    <form action="chat" method="get">
+        <div>
+            <label for="startDate">Start date:</label>
+            <input type="datetime-local" name= "start" id="startDate" >
+        </div>
+        <div>
+            <label for="endDate">End date:</label>
+            <input type="datetime-local" name = "end" id="endDate" >
+        </div>
+        <div>
+            <input type="submit" value="Filter">
+        </div>
+        
+    </form>
     </body>
 </html>

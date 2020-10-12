@@ -3,6 +3,7 @@ package chat;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class ChatManager implements Serializable {
@@ -23,6 +24,24 @@ public class ChatManager implements Serializable {
         chat.add(newMessage);
 
         return newMessage;
+    }
+
+
+    public LinkedList<Message> ListMessages(LocalDateTime startDate, LocalDateTime endDate) {
+        if (chat == null)
+            chat = new LinkedList<>();
+            Stream<Message> messagesToKeepStream = chat.stream();
+            if (startDate != null && endDate != null) {
+                messagesToKeepStream = chat.stream().filter(postedMessage ->
+                        postedMessage.getTimestamp().isAfter(startDate) || postedMessage.getTimestamp().isBefore(endDate));
+            } else if (startDate != null) {
+                messagesToKeepStream = chat.stream().filter(postedMessage ->
+                        postedMessage.getTimestamp().isAfter(startDate));
+            } else if (endDate != null) {
+                messagesToKeepStream = chat.stream().filter(postedMessage ->
+                        postedMessage.getTimestamp().isBefore(endDate));
+            }
+        return messagesToKeepStream.collect(Collectors.toCollection(LinkedList::new));
     }
 
     public LinkedList<Message> getChat() {
