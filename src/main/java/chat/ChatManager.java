@@ -3,6 +3,8 @@ package chat;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ChatManager implements Serializable {
     private LinkedList<Message> chat;
