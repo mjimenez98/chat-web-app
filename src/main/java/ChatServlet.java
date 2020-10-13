@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.time.LocalDateTime;
@@ -28,7 +26,8 @@ public class ChatServlet extends HttpServlet {
         if (request.getHeader("referer").length() < 1) {
             String nonValidReferrerError = "true";
             request.setAttribute("nonValidReferrerError", nonValidReferrerError);
-        } else {
+        }
+        else {
             // Get session
             HttpSession session = request.getSession(false);
 
