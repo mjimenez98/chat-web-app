@@ -149,10 +149,11 @@
                         <div class="text-center mt-2">
                             <input type="submit" name="downloadxml" class="btn btn-info" value="Download XML File">
                         </div>
-                    </form>
-                    <form action="chat" method="get">
                         <div class="text-center mt-2">
                             <input type="submit" name="refresh" class="btn btn-info" value="Refresh Chat">
+                        </div>
+                        <div class="text-center mt-2">
+                            <input type="submit" name="delete" class="btn btn-info" value="Clear Chat">
                         </div>
                     </form>
                 </div>

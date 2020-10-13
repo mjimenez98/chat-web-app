@@ -101,12 +101,9 @@ public class ChatServlet extends HttpServlet {
                 e.printStackTrace();
             }
         }
-
-        if (request.getParameterMap().containsKey("delete")) {
-            if (request.getParameterMap().containsKey("delete")) {
+        else if (request.getParameter("delete") != null) {
                 chatManager.clearChat(start, end);
-                request.setAttribute("chatManager", chatManager);
-            }
+                request.setAttribute("chat",chatManager.getChat());
         }
         RequestDispatcher rd = request.getRequestDispatcher("Chat.jsp");
         rd.forward(request, response);
