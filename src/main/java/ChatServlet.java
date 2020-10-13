@@ -53,8 +53,8 @@ public class ChatServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String dateStart = request.getParameter("start");
-        String dateEnd = request.getParameter("end");
+        String dateStart = request.getParameter("from");
+        String dateEnd = request.getParameter("to");
         LocalDateTime start = null;
         LocalDateTime end = null;
 
@@ -69,7 +69,7 @@ public class ChatServlet extends HttpServlet {
         LinkedList<Message> chat = chatManager.ListMessages(start, end);
         request.setAttribute("chat", chat);
 
-        if (request.getParameter("downloadtxt") != null) {
+        if (request.getParameter("format") != null && request.getParameter("format").equals("Download as TXT")) {
             response.setContentType("text/plain");
             response.setHeader("Content-Disposition", "attachment; filename=\"chat.txt\"");
             try {
@@ -84,7 +84,7 @@ public class ChatServlet extends HttpServlet {
                 e.printStackTrace();
             }
         }
-        else if (request.getParameter("downloadxml") != null){
+        else if (request.getParameter("format") != null && request.getParameter("format").equals("Download as XML")){
             response.setContentType("text/xml");
             response.setHeader("Content-Disposition", "attachment; filename=\"chat.xml\"");
             try {
