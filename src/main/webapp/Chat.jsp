@@ -144,7 +144,10 @@
                     </form>
                     <form action="chat" method="get">
                         <div class="text-center mt-2">
-                            <input type="submit" name="download" class="btn btn-info" value="Download TXT File">
+                            <input type="submit" name="downloadtxt" class="btn btn-info" value="Download TXT File">
+                        </div>
+                        <div class="text-center mt-2">
+                            <input type="submit" name="downloadxml" class="btn btn-info" value="Download XML File">
                         </div>
                     </form>
                 </div>

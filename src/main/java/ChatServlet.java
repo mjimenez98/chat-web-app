@@ -70,7 +70,7 @@ public class ChatServlet extends HttpServlet {
         LinkedList<Message> chat = chatManager.ListMessages(start, end);
         request.setAttribute("chat", chat);
 
-        if (request.getParameter("download") != null) {
+        if (request.getParameter("downloadtxt") != null) {
             response.setContentType("text/plain");
             response.setHeader("Content-Disposition", "attachment; filename=\"chat.txt\"");
             try {
@@ -78,6 +78,23 @@ public class ChatServlet extends HttpServlet {
                 for (Message message : chatManager.getChat()) {
                 String mStr = message.getUser() + " - " + message.getMessage() + " - " + message.getTimestamp() + "\n";
                 outputStream.write(mStr.getBytes());
+                }
+                outputStream.flush();
+                outputStream.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else if (request.getParameter("downloadxml") != null){
+            response.setContentType("text/xml");
+            response.setHeader("Content-Disposition", "attachment; filename=\"chat.xml\"");
+            try {
+                OutputStream outputStream = response.getOutputStream();
+                String xmlHeading = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+                outputStream.write(xmlHeading.getBytes());
+                for (Message message : chatManager.getChat()) {
+                    String mStr = "<chat>\n" + "\t<user>"+ message.getUser() + "</user>\n" + "\t<message>"+ message.getMessage() + "</message>\n" + "\t<timestamp>"+ message.getTimestamp() + "</timestamp>\n" + "</chat>\n";
+                    outputStream.write(mStr.getBytes());
                 }
                 outputStream.flush();
                 outputStream.close();
