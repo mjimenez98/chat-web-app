@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 
@@ -25,7 +26,8 @@ public class ChatServlet extends HttpServlet {
         if (request.getHeader("referer").length() < 1) {
             String nonValidReferrerError = "true";
             request.setAttribute("nonValidReferrerError", nonValidReferrerError);
-        } else {
+        }
+        else {
             // Get session
             HttpSession session = request.getSession(false);
 
@@ -51,8 +53,8 @@ public class ChatServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String dateStart = request.getParameter("start");
-        String dateEnd = request.getParameter("end");
+        String dateStart = request.getParameter("from");
+        String dateEnd = request.getParameter("to");
         LocalDateTime start = null;
         LocalDateTime end = null;
 
@@ -67,11 +69,41 @@ public class ChatServlet extends HttpServlet {
         LinkedList<Message> chat = chatManager.ListMessages(start, end);
         request.setAttribute("chat", chat);
 
-        if (request.getParameterMap().containsKey("delete")) {
-            if (request.getParameterMap().containsKey("delete")) {
-                chatManager.clearChat(start, end);
-                request.setAttribute("chatManager", chatManager);
+        if (request.getParameter("format") != null && request.getParameter("format").equals("Download as TXT")) {
+            response.setContentType("text/plain");
+            response.setHeader("Content-Disposition", "attachment; filename=\"chat.txt\"");
+            try {
+                OutputStream outputStream = response.getOutputStream();
+                for (Message message : chatManager.getChat()) {
+                String mStr = message.getUser() + " - " + message.getMessage() + " - " + message.getTimestamp() + "\n";
+                outputStream.write(mStr.getBytes());
+                }
+                outputStream.flush();
+                outputStream.close();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+        }
+        else if (request.getParameter("format") != null && request.getParameter("format").equals("Download as XML")){
+            response.setContentType("text/xml");
+            response.setHeader("Content-Disposition", "attachment; filename=\"chat.xml\"");
+            try {
+                OutputStream outputStream = response.getOutputStream();
+                String xmlHeading = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+                outputStream.write(xmlHeading.getBytes());
+                for (Message message : chatManager.getChat()) {
+                    String mStr = "<chat>\n" + "\t<user>"+ message.getUser() + "</user>\n" + "\t<message>"+ message.getMessage() + "</message>\n" + "\t<timestamp>"+ message.getTimestamp() + "</timestamp>\n" + "</chat>\n";
+                    outputStream.write(mStr.getBytes());
+                }
+                outputStream.flush();
+                outputStream.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else if (request.getParameter("delete") != null) {
+                chatManager.clearChat(start, end);
+                request.setAttribute("chat",chatManager.getChat());
         }
         RequestDispatcher rd = request.getRequestDispatcher("Chat.jsp");
         rd.forward(request, response);

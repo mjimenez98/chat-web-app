@@ -60,7 +60,7 @@
                             <span class="input-group-text">From</span>
                         </div>
                             <label for="startDate"></label>
-                            <input type="datetime-local" class="form-control" name="start" id="startDate">
+                            <input type="datetime-local" class="form-control" name="from" id="startDate">
                     </div>
         
                     <div class="input-group mx-sm-2 mb-3 mt-3">
@@ -68,7 +68,7 @@
                         <span class="input-group-text">To</span>
                         </div>
                         <label for="endDate"></label>
-                        <input type="datetime-local" class="form-control" name="end" id="endDate">
+                        <input type="datetime-local" class="form-control" name="to" id="endDate">
                     </div>
                     <div class="form-group mx-sm-2 mb-3 mt-3">
                         <input type="submit" class="btn btn-info" value="Filter">
@@ -140,6 +140,20 @@
                         </div>
                         <div class="text-center mt-2">
                             <input type="submit" class="btn btn-info" value="Send">
+                        </div>
+                    </form>
+                    <form action="chat" method="get">
+                        <div class="text-center mt-2">
+                            <input type="submit" name="format" class="btn btn-info" value="Download as TXT">
+                        </div>
+                        <div class="text-center mt-2">
+                            <input type="submit" name="format" class="btn btn-info" value="Download as XML">
+                        </div>
+                        <div class="text-center mt-2">
+                            <input type="submit" name="refresh" class="btn btn-info" value="Refresh Chat">
+                        </div>
+                        <div class="text-center mt-2">
+                            <input type="submit" name="delete" class="btn btn-info" value="Clear Chat">
                         </div>
                     </form>
                 </div>
