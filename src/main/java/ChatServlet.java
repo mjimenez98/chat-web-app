@@ -9,7 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 
@@ -66,6 +69,22 @@ public class ChatServlet extends HttpServlet {
 
         LinkedList<Message> chat = chatManager.ListMessages(start, end);
         request.setAttribute("chat", chat);
+
+        if (request.getParameter("download") != null) {
+            response.setContentType("text/plain");
+            response.setHeader("Content-Disposition", "attachment; filename=\"chat.txt\"");
+            try {
+                OutputStream outputStream = response.getOutputStream();
+                for (Message message : chatManager.getChat()) {
+                String mStr = message.getUser() + " - " + message.getMessage() + " - " + message.getTimestamp() + "\n";
+                outputStream.write(mStr.getBytes());
+                }
+                outputStream.flush();
+                outputStream.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
         if (request.getParameterMap().containsKey("delete")) {
             if (request.getParameterMap().containsKey("delete")) {

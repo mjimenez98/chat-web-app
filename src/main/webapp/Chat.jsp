@@ -142,6 +142,11 @@
                             <input type="submit" class="btn btn-info" value="Send">
                         </div>
                     </form>
+                    <form action="chat" method="get">
+                        <div class="text-center mt-2">
+                            <input type="submit" name="download" class="btn btn-info" value="Download TXT File">
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
