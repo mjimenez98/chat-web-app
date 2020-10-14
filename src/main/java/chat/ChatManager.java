@@ -30,17 +30,17 @@ public class ChatManager implements Serializable {
     public LinkedList<Message> ListMessages(LocalDateTime startDate, LocalDateTime endDate) {
         if (chat == null)
             chat = new LinkedList<>();
-            Stream<Message> messagesToKeepStream = chat.stream();
-            if (startDate != null && endDate != null) {
-                messagesToKeepStream = chat.stream().filter(postedMessage ->
-                        postedMessage.getTimestamp().isAfter(startDate) || postedMessage.getTimestamp().isBefore(endDate));
-            } else if (startDate != null) {
-                messagesToKeepStream = chat.stream().filter(postedMessage ->
-                        postedMessage.getTimestamp().isAfter(startDate));
-            } else if (endDate != null) {
-                messagesToKeepStream = chat.stream().filter(postedMessage ->
-                        postedMessage.getTimestamp().isBefore(endDate));
-            }
+        Stream<Message> messagesToKeepStream = chat.stream();
+        if (startDate != null && endDate != null) {
+            messagesToKeepStream = chat.stream().filter(postedMessage ->
+                    postedMessage.getTimestamp().isAfter(startDate) & postedMessage.getTimestamp().isBefore(endDate));
+        } else if (startDate != null) {
+            messagesToKeepStream = chat.stream().filter(postedMessage ->
+                    postedMessage.getTimestamp().isAfter(startDate));
+        } else if (endDate != null) {
+            messagesToKeepStream = chat.stream().filter(postedMessage ->
+                    postedMessage.getTimestamp().isBefore(endDate));
+        }
         return messagesToKeepStream.collect(Collectors.toCollection(LinkedList::new));
     }
 
