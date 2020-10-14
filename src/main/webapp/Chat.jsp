@@ -10,6 +10,9 @@
         <meta charset="utf-8" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+        <link id="favicon" rel="icon"
+              href="${pageContext.request.contextPath}/images/favicon1.png" type="image/png" sizes="16x16">
+
         <link rel="stylesheet"
               href="${pageContext.request.contextPath}/css/bootstrap.min.css">
         <link rel="stylesheet"
