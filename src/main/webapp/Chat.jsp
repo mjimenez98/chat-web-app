@@ -9,25 +9,33 @@
     <head>
         <meta charset="utf-8" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        
+
+        <link id="favicon" rel="icon"
+              href="${pageContext.request.contextPath}/images/favicon1.png" type="image/png" sizes="16x16">
+
         <link rel="stylesheet"
               href="${pageContext.request.contextPath}/css/bootstrap.min.css">
         <link rel="stylesheet"
+              href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css">
+        <link rel="stylesheet"
               href="${pageContext.request.contextPath}/css/custom.css">
+        <link rel="stylesheet" id="stylesheet-version"
+              href="${pageContext.request.contextPath}/css/version-a.css">
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" type=""></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js" type=""></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" type=""></script>
+        <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js" type=""></script>
         <script type="text/javascript" src="js/custom.js"></script>
 
         <title>JSP Chat Web App</title>
     </head>
-    <body onload="scrollToBottom()">
+    <body onload="scrollToBottom(); switchStylesheet('body')">
         <div class="container mw-100">
             <%-- Title --%>
-            <div class="row py-5 bg-info">
+            <div class="row py-5 title-background">
                 <div class="col-12">
-                    <h1 class="text-center text-white">JSP Chat Web App</h1>
+                    <h1 class="text-center title-text">JSP Chat Web App</h1>
                 </div>
             </div>
 
@@ -53,6 +61,7 @@
                 </div>
             </div>
 
+            <%-- Options --%>
             <div class="row justify-content-center input-group">
                 <form action="chat" method="get" class="form-inline">
                     <div class="input-group mx-sm-2 mb-3 mt-3">
@@ -71,22 +80,28 @@
                         <input type="datetime-local" class="form-control" name="to" id="endDate">
                     </div>
                     <div class="form-group mx-sm-2 mb-3 mt-3">
-                        <input type="submit" class="btn btn-info" value="Filter">
+                        <input type="submit" class="btn button-color" value="Filter">
                     </div>
                     <div class="form-group mx-sm-2 mb-3 mt-3">
-                        <input type="submit" name="delete" class="btn btn-info" value="Clear Chat">
+                        <input type="submit" name="delete" class="btn button-color" value="Clear Chat">
+                    </div>
+                    <div>
+                        <label>
+                            <input type="checkbox" data-on="🦸" data-off="🦹" data-onstyle="info" data-offstyle="dark"
+                                   checked data-toggle="toggle" id="stylesheet-switcher" onchange="switchStylesheet('toggle')">
+                        </label>
                     </div>
                 </form>
-                </div>
+            </div>
 
             <%-- Chat window --%>
             <div class="row justify-content-center my-2">
                 <div class="col-8">
-                    <div id="chat-window" class="overflow-auto">
+                    <div id="chat-window" class="overflow-auto chat-border-color">
                         <table class="table table-striped">
                             <tbody>
                                 <%
-                                LinkedList<Message> chat = (LinkedList<Message>) request.getAttribute("chat");
+                                    LinkedList<Message> chat = (LinkedList<Message>) request.getAttribute("chat");
 
                                     if (request.getAttribute("chat") != null) {
                                         for(Message message : chat) {
@@ -142,23 +157,22 @@
                             <textarea class="form-control" name="message" id="message" rows="2" cols="30"></textarea>
                         </div>
                         <div class="text-center mt-2">
-                            <input type="submit" class="btn btn-info" value="Send">
+                            <input type="submit" class="btn button-color" value="Send">
                         </div>
                     </form>
                     <form action="chat" method="get">
                         <div class="text-center mt-2">
-                            <input type="submit" name="format" class="btn btn-info" value="Download as TXT">
+                            <input type="submit" name="format" class="btn button-color" value="Download as TXT">
                         </div>
                         <div class="text-center mt-2">
-                            <input type="submit" name="format" class="btn btn-info" value="Download as XML">
+                            <input type="submit" name="format" class="btn button-color" value="Download as XML">
                         </div>
                         <div class="text-center mt-2">
-                            <input type="submit" name="refresh" class="btn btn-info" value="Refresh Chat">
+                            <input type="submit" name="refresh" class="btn button-color" value="Refresh Chat">
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-
     </body>
 </html>

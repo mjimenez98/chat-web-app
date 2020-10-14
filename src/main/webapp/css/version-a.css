@@ -1,0 +1,28 @@
+/* Version A */
+
+/* Colorway */
+
+.button-color {
+    background-color: #1B91AA;
+    color: white;
+}
+
+.chat-border-color {
+    border: 0.2em solid #1B91AA;
+}
+
+.title-background {
+    background-color: #1B91AA;
+}
+
+.title-text {
+    color: white;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #D9F7F7;
+}
+
+body {
+    background-image: url("/chat_web_app_war/images/bg1.png");
+}

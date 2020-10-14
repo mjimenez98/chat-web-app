@@ -1,0 +1,29 @@
+/* Version B */
+
+/* Colorway */
+
+.button-color {
+    background-color: #C3B105;
+    color: black;
+}
+
+.chat-border-color {
+    border: 0.2em solid #C3B105;
+}
+
+.title-background {
+    background-color: #C3B105;
+}
+
+.title-text {
+    color: black;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #C3B105;
+}
+
+body {
+    background-image: url("/chat_web_app_war/images/bg2.png");
+    background-size: cover;
+}
