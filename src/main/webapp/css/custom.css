@@ -2,13 +2,8 @@
 
 #chat-window {
     height: 20em;
-    border: 0.2em solid #1B91AA;
 }
 
 .table {
     margin-bottom: 0;
-}
-
-.table-striped tbody tr:nth-of-type(odd) {
-    background-color: #D9F7F7
 }
