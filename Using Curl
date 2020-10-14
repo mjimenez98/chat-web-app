@@ -1,0 +1,16 @@
+Calling the "post" servlet function from the command line:
+
+curl --referer http://localhost:8080/chat_web_app_war/chat --data "user=Peter Porker&message=Hey" --location  -v http://localhost:8080/chat_web_app_war/chat
+
+Calling the "clear" servlet function from the command line:
+
+curl -X GET "http://localhost:8080/chat_web_app_war/chat?delete=true"
+curl -X GET "http://localhost:8080/chat_web_app_war/chat?from=2020-10-13T20%3A30&to=2020-10-13T20%3A40&delete=Clear+Chat"
+
+Calling "download as text" servlet function from the command line:
+
+curl -X GET "http://localhost:8080/chat_web_app_war/chat?format=Download%20as%20TXT"
+
+Calling "download as xml" servlet function from the command line:
+
+curl -X GET "http://localhost:8080/chat_web_app_war/chat?format=Download%20as%20XML"
