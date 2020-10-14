@@ -73,6 +73,9 @@
                     <div class="form-group mx-sm-2 mb-3 mt-3">
                         <input type="submit" class="btn btn-info" value="Filter">
                     </div>
+                    <div class="form-group mx-sm-2 mb-3 mt-3">
+                        <input type="submit" name="delete" class="btn btn-info" value="Clear Chat">
+                    </div>
                 </form>
                 </div>
 
@@ -151,9 +154,6 @@
                         </div>
                         <div class="text-center mt-2">
                             <input type="submit" name="refresh" class="btn btn-info" value="Refresh Chat">
-                        </div>
-                        <div class="text-center mt-2">
-                            <input type="submit" name="delete" class="btn btn-info" value="Clear Chat">
                         </div>
                     </form>
                 </div>
