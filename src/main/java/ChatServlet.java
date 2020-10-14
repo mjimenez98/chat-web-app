@@ -62,7 +62,7 @@ public class ChatServlet extends HttpServlet {
         if (dateStart != null && dateStart.length() > 0) {
             start = LocalDateTime.parse(dateStart);
         }
-        if (dateStart != null && dateEnd.length() > 0) {
+        if (dateEnd != null && dateEnd.length() > 0) {
             end = LocalDateTime.parse(dateEnd);
         }
 
