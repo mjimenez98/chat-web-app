@@ -58,6 +58,7 @@
                 </div>
             </div>
 
+            <%-- Options --%>
             <div class="row justify-content-center input-group">
                 <form action="chat" method="get" class="form-inline">
                     <div class="input-group mx-sm-2 mb-3 mt-3">
