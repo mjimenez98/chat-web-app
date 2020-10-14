@@ -29,7 +29,7 @@ public class ChatServlet extends HttpServlet {
         }
         else {
             // Get session
-            HttpSession session = request.getSession(false);
+            HttpSession session = request.getSession(true);
 
             // Initialize Message properties
             String message = request.getParameter("message");
