@@ -24,8 +24,7 @@ public class ChatServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getHeader("referer") == null) {
-            String nonValidReferrerError = "true";
-            request.setAttribute("nonValidReferrerError", nonValidReferrerError);
+            request.setAttribute("nonValidReferrerError", "true");
         }
         else {
             // Get session
@@ -60,8 +59,7 @@ public class ChatServlet extends HttpServlet {
         LocalDateTime end = null;
 
         if (request.getHeader("referer") == null) {
-            String nonValidReferrerError = "true";
-            request.setAttribute("nonValidReferrerError", nonValidReferrerError);
+            request.setAttribute("nonValidReferrerError", "true");
         } else {
             // Parse String into LocalDateTime
             if (dateStart != null && dateStart.length() > 0) {
@@ -116,6 +114,8 @@ public class ChatServlet extends HttpServlet {
             } else if (request.getParameter("delete") != null) {
                 chatManager.clearChat(start, end);
             }
+
+            request.setAttribute("nonValidReferrerError", "false");
         }
 
         LinkedList<Message> chat = chatManager.ListMessages(start, end);
