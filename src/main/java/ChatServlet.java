@@ -74,6 +74,7 @@ public class ChatServlet extends HttpServlet {
             if (request.getParameter("format") != null && request.getParameter("format").equals("Download as TXT")) {
                 response.setContentType("text/plain");
                 response.setHeader("Content-Disposition", "attachment; filename=\"chat.txt\"");
+                response.setHeader("Expires", String.valueOf(LocalDateTime.now().plusDays(1)));
 
                 try {
                     OutputStream outputStream = response.getOutputStream();
@@ -88,10 +89,11 @@ public class ChatServlet extends HttpServlet {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }
-            else if (request.getParameter("format") != null && request.getParameter("format").equals("Download as XML")){
+            } else if (request.getParameter("format") != null && request.getParameter("format").equals("Download as XML")) {
                 response.setContentType("text/xml");
                 response.setHeader("Content-Disposition", "attachment; filename=\"chat.xml\"");
+                response.setHeader("Expires", String.valueOf(LocalDateTime.now().plusDays(1)));
+
                 try {
                     OutputStream outputStream = response.getOutputStream();
                     String xmlHeading = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
@@ -110,8 +112,8 @@ public class ChatServlet extends HttpServlet {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }
-            else if (request.getParameter("delete") != null) {
+
+            } else if (request.getParameter("delete") != null) {
                 chatManager.clearChat(start, end);
             }
         }
