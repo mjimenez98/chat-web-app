@@ -7,3 +7,11 @@
 .table {
     margin-bottom: 0;
 }
+
+.table-striped tbody tr:nth-of-type(even) {
+    background-color: white;
+}
+
+body {
+    background-size: cover;
+}

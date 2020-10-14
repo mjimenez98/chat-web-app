@@ -22,3 +22,7 @@
 .table-striped tbody tr:nth-of-type(odd) {
     background-color: #D9F7F7;
 }
+
+body {
+    background-image: url("/chat_web_app_war/images/bg1.png");
+}
