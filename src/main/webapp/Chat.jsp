@@ -102,6 +102,7 @@
                             <tbody>
                                 <%
                                     LinkedList<Message> chat = (LinkedList<Message>) request.getAttribute("chat");
+                                    String rsp = (String) session.getAttribute("apiResponse");
 
                                     if (request.getAttribute("chat") != null) {
                                         for(Message message : chat) {
@@ -131,6 +132,9 @@
                                 %>
                             </tbody>
                         </table>
+                        <div>
+                            <p> <%=rsp%> </p>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -1,5 +1,4 @@
 import chat.ChatManager;
-import chat.Message;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -13,13 +12,35 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
+import chat.ChatManagerGrpc;
+import chat.Message;
+import io.grpc.Channel;
+import io.grpc.ManagedChannel;
+import io.grpc.ManagedChannelBuilder;
+import io.grpc.Status;
+import io.grpc.StatusRuntimeException;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @WebServlet(name = "ChatServlet")
 public class ChatServlet extends HttpServlet {
-    private ChatManager chatManager;
+    //private ChatManager chatManager;
+    private GrpcClient client;
 
     public void init(ServletConfig config) {
-        chatManager = new ChatManager();
+        client = new GrpcClient();
+        if(client!= null){
+            System.out.println("Client created");
+        }
+        else{
+            System.out.println("Could not create a client");
+        }
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -35,29 +56,32 @@ public class ChatServlet extends HttpServlet {
             String user = request.getParameter("user");
 
             // Create new Message and save it
-            Message newMessage = chatManager.postMessage(user, message);
+            String apiResponse = client.postMessage(user, message);
 
             // If message parameter missing
             // NOTE: Could be improved by having a NoMessageError subclass of Message for better error handling
-            String noMessageError = (newMessage == null) ? "true" : "false";
-
+            String noMessageError = (apiResponse == "SUCCESS") ? "true" : "false";
+            System.out.println(apiResponse);
             // Update attributes
             session.setAttribute("userId", user);
+            session.setAttribute("apiResponse", apiResponse);
             session.setAttribute("noMessageError", noMessageError);
             request.setAttribute("nonValidReferrerError", "false");
-            LinkedList<Message> chat = chatManager.ListMessages(null, null);
-            session.setAttribute("chat", chat);
+            //LinkedList<Message> chat = chatManager.ListMessages(null, null);
+            //session.setAttribute("chat", chat);
         }
 
         response.sendRedirect("/chat_web_app_war/chat");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        /*
         String dateStart = request.getParameter("from");
         String dateEnd = request.getParameter("to");
         LocalDateTime start = null;
         LocalDateTime end = null;
-
+        */
+        /*
         if (request.getHeader("referer") == null) {
             request.setAttribute("nonValidReferrerError", "true");
         } else {
@@ -120,7 +144,7 @@ public class ChatServlet extends HttpServlet {
 
         LinkedList<Message> chat = chatManager.ListMessages(start, end);
         request.setAttribute("chat", chat);
-
+*/
         RequestDispatcher rd = request.getRequestDispatcher("Chat.jsp");
         rd.forward(request, response);
     }
